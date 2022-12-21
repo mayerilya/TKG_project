@@ -1,0 +1,60 @@
+﻿<dx:ThemedWindow xmlns:dxnav="http://schemas.devexpress.com/winfx/2008/xaml/navigation"  xmlns:dxn="http://schemas.devexpress.com/winfx/2008/xaml/navbar"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui" 
+    xmlns:dxwuin="http://schemas.devexpress.com/winfx/2008/xaml/windowsui/navigation"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxs="clr-namespace:route_model_docs"          
+    xmlns:Views="clr-namespace:route_model_docs.Views"  xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon"
+    xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+    x:Class="route_model_docs.MainWindow"
+    Title="Сервис перевозки ТКГ" Height="1000" Width="1200" 
+    WindowStartupLocation="CenterScreen" 
+    Icon="{dx:DXImage SvgImages/Dashboards/Zoom.svg}">
+    
+    <dx:ThemedWindow.DataContext>
+        <dxs:MainViewModel/>
+    </dx:ThemedWindow.DataContext>
+    <dxmvvm:Interaction.Triggers>
+        <dxmvvm:EventToCommand EventName="Loaded" Command="{Binding OnViewLoadedCommand}" />
+    </dxmvvm:Interaction.Triggers>
+    <dxmvvm:Interaction.Behaviors>
+        <dxwuin:FrameNavigationService Frame="{Binding ElementName=frame}"/>
+    </dxmvvm:Interaction.Behaviors>
+    <Grid>
+        <Grid.RowDefinitions>
+            
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <dxn:NavBarControl  Grid.Column="0" x:Name="nav" ItemsSource="{Binding Items}" SelectedGroup="{Binding SelectedViewModel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Compact="False">
+                <dxn:NavBarControl.ItemTemplate>
+                    <DataTemplate>
+                        <ContentControl>
+                            <dxn:NavBarGroup Header="{Binding ViewName}" DisplaySource="Content">
+                                <dxn:NavBarGroup.Content>
+                                    <ContentControl>
+                                        <TextBlock Text="{Binding ViewName}"/>
+                                    </ContentControl>
+                                </dxn:NavBarGroup.Content>
+                            </dxn:NavBarGroup>
+                        </ContentControl>
+                    </DataTemplate>
+                </dxn:NavBarControl.ItemTemplate>
+                <dxn:NavBarControl.View>
+                    <dxn:NavigationPaneView />
+                </dxn:NavBarControl.View>
+            </dxn:NavBarControl>
+            <dxwui:NavigationFrame Grid.Column="1" x:Name="frame"/>
+        </Grid>
+
+        <dxnav:OfficeNavigationBar Grid.Row="1" NavigationClient="{Binding ElementName=nav}"/>
+    </Grid>
+</dx:ThemedWindow>

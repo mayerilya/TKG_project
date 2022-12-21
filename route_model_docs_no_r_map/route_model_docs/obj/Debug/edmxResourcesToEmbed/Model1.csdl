@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TestModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="dots">
+    <Key>
+      <PropertyRef Name="Id_dot" />
+    </Key>
+    <Property Name="Id_dot" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="address" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="lon" Type="Double" />
+    <Property Name="lan" Type="Double" />
+    <Property Name="Path_FK" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="paths" Relationship="Self.FK_dots_paths" FromRole="dots" ToRole="paths" />
+    <Property Name="traf_categ_price" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+  </EntityType>
+  <EntityType Name="paths">
+    <Key>
+      <PropertyRef Name="Id_path" />
+    </Key>
+    <Property Name="Id_path" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="path_name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="dots" Relationship="Self.FK_dots_paths" FromRole="paths" ToRole="dots" />
+  </EntityType>
+  <Association Name="FK_dots_paths">
+    <End Role="paths" Type="Self.paths" Multiplicity="1" />
+    <End Role="dots" Type="Self.dots" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="paths">
+        <PropertyRef Name="Id_path" />
+      </Principal>
+      <Dependent Role="dots">
+        <PropertyRef Name="Path_FK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="TestEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="dots" EntityType="Self.dots" />
+    <EntitySet Name="paths" EntityType="Self.paths" />
+    <AssociationSet Name="FK_dots_paths" Association="Self.FK_dots_paths">
+      <End Role="paths" EntitySet="paths" />
+      <End Role="dots" EntitySet="dots" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

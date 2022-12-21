@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище TestModelContainer" CdmEntityContainer="TestEntities">
+    <EntitySetMapping Name="dots">
+      <EntityTypeMapping TypeName="TestModel.dots">
+        <MappingFragment StoreEntitySet="dots">
+          <ScalarProperty Name="traf_categ_price" ColumnName="traf_categ_price" />
+          <ScalarProperty Name="Id_dot" ColumnName="Id_dot" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="lon" ColumnName="lon" />
+          <ScalarProperty Name="lan" ColumnName="lan" />
+          <ScalarProperty Name="Path_FK" ColumnName="Path_FK" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="paths">
+      <EntityTypeMapping TypeName="TestModel.paths">
+        <MappingFragment StoreEntitySet="paths">
+          <ScalarProperty Name="Id_path" ColumnName="Id_path" />
+          <ScalarProperty Name="path_name" ColumnName="path_name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
